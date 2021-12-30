@@ -11,6 +11,12 @@
 		F99FFD8E277D0C730028E4F0 /* SetRoyaleGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FFD8D277D0C730028E4F0 /* SetRoyaleGameView.swift */; };
 		F99FFD90277D0C740028E4F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F99FFD8F277D0C740028E4F0 /* Assets.xcassets */; };
 		F99FFD93277D0C740028E4F0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F99FFD92277D0C740028E4F0 /* Preview Assets.xcassets */; };
+		F99FFD9F277D0E000028E4F0 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FFD9E277D0E000028E4F0 /* AspectVGrid.swift */; };
+		F99FFDA1277D0E3D0028E4F0 /* SetRoyaleGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FFDA0277D0E3D0028E4F0 /* SetRoyaleGame.swift */; };
+		F99FFDA3277D10960028E4F0 /* SetRoyale+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FFDA2277D10960028E4F0 /* SetRoyale+Extensions.swift */; };
+		F99FFDA5277D19490028E4F0 /* SetRoyaleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FFDA4277D19490028E4F0 /* SetRoyaleViewModel.swift */; };
+		F99FFDA7277D1ACF0028E4F0 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FFDA6277D1ACF0028E4F0 /* CardView.swift */; };
+		F99FFDA9277D1FFF0028E4F0 /* DiamondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FFDA8277D1FFF0028E4F0 /* DiamondView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +25,12 @@
 		F99FFD8D277D0C730028E4F0 /* SetRoyaleGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRoyaleGameView.swift; sourceTree = "<group>"; };
 		F99FFD8F277D0C740028E4F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F99FFD92277D0C740028E4F0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F99FFD9E277D0E000028E4F0 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
+		F99FFDA0277D0E3D0028E4F0 /* SetRoyaleGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRoyaleGame.swift; sourceTree = "<group>"; };
+		F99FFDA2277D10960028E4F0 /* SetRoyale+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SetRoyale+Extensions.swift"; sourceTree = "<group>"; };
+		F99FFDA4277D19490028E4F0 /* SetRoyaleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRoyaleViewModel.swift; sourceTree = "<group>"; };
+		F99FFDA6277D1ACF0028E4F0 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		F99FFDA8277D1FFF0028E4F0 /* DiamondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiamondView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +63,11 @@
 		F99FFD8A277D0C730028E4F0 /* SetRoyale */ = {
 			isa = PBXGroup;
 			children = (
+				F99FFD8B277D0C730028E4F0 /* SetRoyaleApp.swift */,
 				F99FFD9A277D0C9E0028E4F0 /* Model */,
 				F99FFD9B277D0CA90028E4F0 /* ViewModel */,
 				F99FFD99277D0C980028E4F0 /* View */,
-				F99FFD8B277D0C730028E4F0 /* SetRoyaleApp.swift */,
+				F99FFD9C277D0DE60028E4F0 /* Utils */,
 				F99FFD8F277D0C740028E4F0 /* Assets.xcassets */,
 				F99FFD91277D0C740028E4F0 /* Preview Content */,
 			);
@@ -73,6 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				F99FFD8D277D0C730028E4F0 /* SetRoyaleGameView.swift */,
+				F99FFDA6277D1ACF0028E4F0 /* CardView.swift */,
+				F99FFDA8277D1FFF0028E4F0 /* DiamondView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -80,6 +95,7 @@
 		F99FFD9A277D0C9E0028E4F0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F99FFDA0277D0E3D0028E4F0 /* SetRoyaleGame.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -87,8 +103,26 @@
 		F99FFD9B277D0CA90028E4F0 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				F99FFDA4277D19490028E4F0 /* SetRoyaleViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F99FFD9C277D0DE60028E4F0 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F99FFD9D277D0DF30028E4F0 /* View */,
+				F99FFDA2277D10960028E4F0 /* SetRoyale+Extensions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		F99FFD9D277D0DF30028E4F0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F99FFD9E277D0E000028E4F0 /* AspectVGrid.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,8 +195,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F99FFDA7277D1ACF0028E4F0 /* CardView.swift in Sources */,
 				F99FFD8E277D0C730028E4F0 /* SetRoyaleGameView.swift in Sources */,
+				F99FFDA1277D0E3D0028E4F0 /* SetRoyaleGame.swift in Sources */,
+				F99FFDA9277D1FFF0028E4F0 /* DiamondView.swift in Sources */,
 				F99FFD8C277D0C730028E4F0 /* SetRoyaleApp.swift in Sources */,
+				F99FFDA5277D19490028E4F0 /* SetRoyaleViewModel.swift in Sources */,
+				F99FFD9F277D0E000028E4F0 /* AspectVGrid.swift in Sources */,
+				F99FFDA3277D10960028E4F0 /* SetRoyale+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

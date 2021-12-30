@@ -10,8 +10,11 @@ import SwiftUI
 @main
 struct SetRoyaleApp: App {
     var body: some Scene {
+        
+        let viewModel = SetRoyaleViewModel()
+        
         WindowGroup {
-            SetRoyaleGameView()
+            SetRoyaleGameView(viewModel: viewModel)
         }
     }
 }
