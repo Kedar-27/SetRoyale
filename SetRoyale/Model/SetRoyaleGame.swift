@@ -46,10 +46,19 @@ struct SetRoyaleGame{
         
     }
     
+    
+    var currentSelectedMatchedCards: [Card]{
+        
+        return self.deck.filter({$0.isMatched && $0.isSelected})
+        
+    }
+
+    
     private(set) var score: Int = 0
     
     var isDeckEmpty: Bool{
-        return deck.isEmpty
+        guard let lastDeckCard = self.deck.last else{return false}
+        return self.matchedCards.contains(lastDeckCard) || self.dealedCards.contains(lastDeckCard)
     }
     
     
@@ -82,9 +91,6 @@ struct SetRoyaleGame{
         
         deck.shuffle()
         
-        
-        print(deck.prefix(20))
-        
         return deck
     }
     
@@ -93,8 +99,18 @@ struct SetRoyaleGame{
         guard let chosenCardIndex = self.deck.firstIndex(where: { $0 == card}) else{return}
         
         
-        if self.selectedCards.count == 3 , self.deck[chosenCardIndex].isMatched{
+        if self.deck[chosenCardIndex].isMatched{
+            // Selecting already matched card
             return
+        }else if self.selectedCards.count == 3{
+            // Already 3 cards selected and trying to select 4th card(maybe already present in selected card and not part of matching set)
+            
+            if  self.selectedCards.filter({$0.isMatched}).count == 3{
+                // Already 3 matched card present. Deal more cards
+                self.dealCards()
+            }
+
+            self.deselectAllSelectedCards()
         }
         
         
@@ -149,12 +165,11 @@ struct SetRoyaleGame{
     
     mutating func dealCards(){
         
-        let actualDealCardsIndex = self.dealedCards.count - 1
-        //- self.matchedCards.count
+        guard let actualDealCardsIndex = self.deck.lastIndex(where: {$0.isDealt}) else{return}
         
-        debugPrint(actualDealCardsIndex)
+        let numberOfMoreCardsToBeDealt = (self.dealedCards.count - self.currentSelectedMatchedCards.count > 12 && !self.currentSelectedMatchedCards.isEmpty) ? 0 : 3
         
-        for index in 0..<actualDealCardsIndex+3{
+        for index in 0...(actualDealCardsIndex + numberOfMoreCardsToBeDealt){
             self.deck[index].isDealt = true
             if self.deck[index].isMatched {
                 self.deck[index].isSelected = false
@@ -170,6 +185,16 @@ struct SetRoyaleGame{
     
     mutating func updateScore(_ newScore: Int){
         self.score = self.score + newScore
+    }
+    
+    
+    private mutating func deselectAllSelectedCards(){
+        
+        for index in self.deck.indices{
+            self.deck[index].isSelected = false
+        }
+        
+        
     }
     
     

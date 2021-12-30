@@ -35,6 +35,7 @@ struct SetRoyaleGameView: View {
                     Text("Deal 3 cards")
                         .padding()
                 }
+                .disabled(self.viewModel.isDeckEmpty)
                 .foregroundColor(.white)
                 .background(RoundedRectangle(cornerRadius: 10   , style: .continuous).foregroundColor(.cyan))
                 .font(.headline)

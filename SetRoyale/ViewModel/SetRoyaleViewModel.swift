@@ -20,7 +20,10 @@ class SetRoyaleViewModel: ObservableObject{
         self.model.score
     }
 
-    
+    var isDeckEmpty: Bool{
+        self.model.isDeckEmpty
+    }
+
     
     // Step 1: Add @Published to publish changes.
     @Published private var model: SetRoyaleGame = SetRoyaleViewModel.createSetRoyaleGame()
