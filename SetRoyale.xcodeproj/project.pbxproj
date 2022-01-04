@@ -17,6 +17,7 @@
 		F99FFDA5277D19490028E4F0 /* SetRoyaleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FFDA4277D19490028E4F0 /* SetRoyaleViewModel.swift */; };
 		F99FFDA7277D1ACF0028E4F0 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FFDA6277D1ACF0028E4F0 /* CardView.swift */; };
 		F99FFDA9277D1FFF0028E4F0 /* DiamondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FFDA8277D1FFF0028E4F0 /* DiamondView.swift */; };
+		F9F9BC172784DD430018EEEB /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F9BC162784DD430018EEEB /* Cardify.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		F99FFDA4277D19490028E4F0 /* SetRoyaleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRoyaleViewModel.swift; sourceTree = "<group>"; };
 		F99FFDA6277D1ACF0028E4F0 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		F99FFDA8277D1FFF0028E4F0 /* DiamondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiamondView.swift; sourceTree = "<group>"; };
+		F9F9BC162784DD430018EEEB /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				F99FFD9E277D0E000028E4F0 /* AspectVGrid.swift */,
+				F9F9BC162784DD430018EEEB /* Cardify.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 				F99FFDA7277D1ACF0028E4F0 /* CardView.swift in Sources */,
 				F99FFD8E277D0C730028E4F0 /* SetRoyaleGameView.swift in Sources */,
 				F99FFDA1277D0E3D0028E4F0 /* SetRoyaleGame.swift in Sources */,
+				F9F9BC172784DD430018EEEB /* Cardify.swift in Sources */,
 				F99FFDA9277D1FFF0028E4F0 /* DiamondView.swift in Sources */,
 				F99FFD8C277D0C730028E4F0 /* SetRoyaleApp.swift in Sources */,
 				F99FFDA5277D19490028E4F0 /* SetRoyaleViewModel.swift in Sources */,
@@ -333,6 +337,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SetRoyale/Preview Content\"";
+				DEVELOPMENT_TEAM = 5DBW4RY4K3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -361,6 +366,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SetRoyale/Preview Content\"";
+				DEVELOPMENT_TEAM = 5DBW4RY4K3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

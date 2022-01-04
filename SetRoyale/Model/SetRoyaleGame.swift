@@ -20,16 +20,14 @@ struct SetRoyaleGame{
         var isSelected: Bool = false
         var isMatched: Bool = false
         var isDealt: Bool = false
-        
     }
     
     
     // MARK: - Properties
     private static let deckSize = 81
-    
-    
-    
     private(set) var deck: [Card]
+    
+    
     var dealedCards: [Card]{
         return self.deck.filter({$0.isDealt == true})
     }
@@ -65,15 +63,25 @@ struct SetRoyaleGame{
     // MARK: - Initializer
     init(){
         self.deck = SetRoyaleGame.createDeck()
-        
-        for index in 0...11{
-            self.deck[index].isDealt = true
-        }
+//        for index in 0...11{
+//            self.deck[index].isDealt = true
+//        }
+
         
     }
     
     
     // MARK: - Methods
+    
+    mutating func dealInitialCards(){
+        for index in 0...11{
+            self.deck[index].isDealt = true
+        }
+
+    }
+
+    
+    
     
     static func createDeck() -> [Card]{
         var deck:[Card] = []
@@ -164,7 +172,14 @@ struct SetRoyaleGame{
     
     
     mutating func dealCards(){
+
+        if self.dealedCards.isEmpty{
+            self.dealInitialCards()
+            return
+        }
         
+        
+
         guard let actualDealCardsIndex = self.deck.lastIndex(where: {$0.isDealt}) else{return}
         
         let numberOfMoreCardsToBeDealt = (self.dealedCards.count - self.currentSelectedMatchedCards.count > 12 && !self.currentSelectedMatchedCards.isEmpty) ? 0 : 3
@@ -195,6 +210,10 @@ struct SetRoyaleGame{
         }
         
         
+    }
+    
+    func getDeck() -> [Card]{
+        return deck
     }
     
     

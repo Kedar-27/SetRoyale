@@ -12,6 +12,12 @@ class SetRoyaleViewModel: ObservableObject{
     
     
     // MARK: - Properties
+    var deck: [SetRoyaleGame.Card]{
+        self.model.getDeck()
+    }
+
+    
+    
     var cards: [SetRoyaleGame.Card]{
         self.model.dealedCards
     }
@@ -94,30 +100,26 @@ class SetRoyaleViewModel: ObservableObject{
         
         let color = Color(hex: card.color.rawValue)
         
-        switch card.shape{
+        
+        Group{
             
-            
-        case .diamond:
-            Image(systemName: card.shade == .solid ? "suit.diamond.fill": card.shade == .outlined ? "suit.diamond" : "diamond.tophalf.filled")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(color)
+            switch card.shape{
                 
-            
-        case .oval:
-            Image(systemName: card.shade == .solid ? "oval.fill": card.shade == .outlined ? "oval" : "oval.tophalf.filled")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(color)
                 
-
-        case .squiggle:
-            Image(systemName: card.shade == .solid ? "rectangle.fill": card.shade == .outlined ? "rectangle" : "rectangle.lefthalf.filled")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(color)
-            
+            case .diamond:
+                Image(systemName: card.shade == .solid ? "suit.diamond.fill": card.shade == .outlined ? "suit.diamond" : "diamond.tophalf.filled")
+                    .resizable()
+            case .oval:
+                Image(systemName: card.shade == .solid ? "oval.fill": card.shade == .outlined ? "oval" : "oval.tophalf.filled")
+                    .resizable()
+            case .squiggle:
+                Image(systemName: card.shade == .solid ? "rectangle.fill": card.shade == .outlined ? "rectangle" : "rectangle.lefthalf.filled")
+                    .resizable()
+            }
         }
+        
+        .aspectRatio(contentMode: .fit)
+        .foregroundColor(color)
         
        // EmptyView()
     }
