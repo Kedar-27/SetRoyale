@@ -68,13 +68,13 @@ struct SetRoyaleGameView: View {
     // MARK: - Views
     
     var cardBody: some View{
-  
         
-        AspectVGrid(items: self.viewModel.cards, aspectRatio: CardConstants.aspectRatio) { card in
-//            if  self.isUndealt(card) || (card.isMatched){
-//                Color.clear
-//            }
-          //  else {
+        AspectVGrid(items: viewModel.cards, aspectRatio: CardConstants.aspectRatio) { card in
+            if  self.isUndealt(card) || (card.isMatched){
+                //Rectangle().opacity(0) // Can be replaced with Color.clear
+                Color.clear
+            }
+            else {
                 CardView(viewModel: self.viewModel, card: card)
                     .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                     .padding(4)
@@ -87,7 +87,7 @@ struct SetRoyaleGameView: View {
                         
                         
                     }
-         //   }
+            }
         }
 
         
@@ -183,7 +183,7 @@ struct SetRoyaleGameView: View {
         var delay = 0.0
         if var index = viewModel.cards.firstIndex(where: { $0.id == card.id }) {
             if index > 11 {
-                index  = (index % 3) 
+                index  = (index % 3) + 1
                 
             }
             
