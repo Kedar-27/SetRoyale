@@ -19,8 +19,7 @@ struct SetRoyaleGameView: View {
     @State var discardedCards = Set<String>()
     
     @Namespace private var dealingNamespace
-    @Namespace private var discardingNamespace
-    
+        
     var body: some View {
         NavigationView{
             
@@ -70,8 +69,7 @@ struct SetRoyaleGameView: View {
     var cardBody: some View{
         
         AspectVGrid(items: viewModel.cards, aspectRatio: CardConstants.aspectRatio) { card in
-            if  self.isUndealt(card) || (card.isMatched){
-                //Rectangle().opacity(0) // Can be replaced with Color.clear
+            if  self.isUndealt(card) || self.isDiscarded(card) {
                 Color.clear
             }
             else {
@@ -79,11 +77,31 @@ struct SetRoyaleGameView: View {
                     .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                     .padding(4)
                     .zIndex(zIndex(of: card))
-                    .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
+                    .transition(AnyTransition.asymmetric(insertion: .identity, removal: .identity))
                     .onTapGesture {
-                        withAnimation(.easeInOut(duration: 1)) {
+                        withAnimation(.easeInOut(duration: CardConstants.dealDuration)) {
                             viewModel.choose(card)
                         }
+                        
+//                        for card in self.viewModel.matchedCards{
+//
+//                            withAnimation(dealAnimation(for: card)) {
+//                                self.unDeal(card)
+//
+//                            }
+//                        }
+//
+//                        
+//                        
+//                        for card in self.viewModel.cards{
+//
+//                            withAnimation(dealAnimation(for: card)) {
+//                                self.deal(card)
+//
+//                            }
+//                        }
+
+                        
                         
                         
                     }
@@ -110,14 +128,22 @@ struct SetRoyaleGameView: View {
             // "deal" cards
             
             self.viewModel.dealMoreCards()
-            
+
             for card in self.viewModel.cards{
 
                 withAnimation(dealAnimation(for: card)) {
                     self.deal(card)
                 }
             }
-            
+//
+//            for card in self.viewModel.matchedCards{
+//
+//                withAnimation(dealAnimation(for: card)) {
+//                    self.unDeal(card)
+//
+//                }
+//            }
+
             
             
             
@@ -128,9 +154,9 @@ struct SetRoyaleGameView: View {
     var discardedPile: some View{
         
         ZStack {
-            ForEach(viewModel.deck.filter(isDiscarded)) { card in
+            ForEach(viewModel.matchedCards.filter(isDiscarded)) { card in
                 CardView(viewModel: self.viewModel, card: card)
-                    .matchedGeometryEffect(id: card.id, in: discardingNamespace)
+                    .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                     .transition(AnyTransition
                                     .asymmetric(insertion: .opacity, removal: .identity))
                     .zIndex(zIndex(of: card))
@@ -173,8 +199,15 @@ struct SetRoyaleGameView: View {
         !self.dealtCards.contains(card.id)
     }
     
+    
+    private func unDeal(_ card: SetRoyaleGame.Card){
+        self.discardedCards.insert(card.id)
+    }
+
+    
+    
     private func isDiscarded(_ card: SetRoyaleGame.Card) -> Bool{
-        return card.isMatched
+        self.discardedCards.contains(card.id)
     }
 
     

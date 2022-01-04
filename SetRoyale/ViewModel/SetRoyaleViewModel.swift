@@ -22,6 +22,12 @@ class SetRoyaleViewModel: ObservableObject{
         self.model.dealedCards
     }
     
+    var matchedCards: [SetRoyaleGame.Card]{
+        self.model.matchedCards
+    }
+
+    
+    
     var score: Int{
         self.model.score
     }

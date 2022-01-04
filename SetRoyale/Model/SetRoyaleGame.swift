@@ -97,7 +97,7 @@ struct SetRoyaleGame{
             }
         }
         
-        deck.shuffle()
+       // deck.shuffle()
         
         return deck
     }
