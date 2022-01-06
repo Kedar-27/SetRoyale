@@ -17,6 +17,9 @@ struct SetRoyaleGameView: View {
     
     @State var dealtCards =  Set<String>()
     @State var discardedCards = Set<String>()
+    @State var tempDiscardedCards = Set<String>()
+    @State var isUnDealingAnimationComplete = true
+    
     
     @Namespace private var dealingNamespace
         
@@ -51,6 +54,7 @@ struct SetRoyaleGameView: View {
                 }
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button {
+                        self.isUnDealingAnimationComplete = true
                         self.viewModel.createNewGame()
                     } label: {
                         Image(systemName: "plus")
@@ -68,8 +72,10 @@ struct SetRoyaleGameView: View {
     
     var cardBody: some View{
         
-        AspectVGrid(items: viewModel.cards, aspectRatio: CardConstants.aspectRatio) { card in
-            if  self.isUndealt(card) || self.isDiscarded(card) {
+        let cards =  isUnDealingAnimationComplete ? viewModel.cards: self.viewModel.deck.filter({$0.isMatched || $0.isDealt}).filter({ !self.isDiscarded($0) })
+    
+        return  AspectVGrid(items: cards, aspectRatio: CardConstants.aspectRatio) { card in
+            if  self.isUndealt(card) || self.isDiscardedBeforeAnimation(card) {
                 Color.clear
             }
             else {
@@ -82,27 +88,21 @@ struct SetRoyaleGameView: View {
                         withAnimation(.easeInOut(duration: CardConstants.dealDuration)) {
                             viewModel.choose(card)
                         }
+                    }
+                    .onChange(of: self.viewModel.matchedCards) { newValue in
                         
-//                        for card in self.viewModel.matchedCards{
-//
-//                            withAnimation(dealAnimation(for: card)) {
-//                                self.unDeal(card)
-//
-//                            }
-//                        }
-//
-//                        
-//                        
-//                        for card in self.viewModel.cards{
-//
-//                            withAnimation(dealAnimation(for: card)) {
-//                                self.deal(card)
-//
-//                            }
-//                        }
-
+                        self.isUnDealingAnimationComplete = false
+                    }
+                    
+                    .onChange(of: self.viewModel.unDealtMatchedCards) { newValue in
                         
+                        self.unDealWithAnimation()
                         
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
+                            self.discardedCards = self.tempDiscardedCards
+                            self.isUnDealingAnimationComplete = true
+                            self.dealWithAnimation()
+                        }
                         
                     }
             }
@@ -128,25 +128,7 @@ struct SetRoyaleGameView: View {
             // "deal" cards
             
             self.viewModel.dealMoreCards()
-
-            for card in self.viewModel.cards{
-
-                withAnimation(dealAnimation(for: card)) {
-                    self.deal(card)
-                }
-            }
-//
-//            for card in self.viewModel.matchedCards{
-//
-//                withAnimation(dealAnimation(for: card)) {
-//                    self.unDeal(card)
-//
-//                }
-//            }
-
-            
-            
-            
+            self.dealWithAnimation()
         }
 
     }
@@ -154,42 +136,41 @@ struct SetRoyaleGameView: View {
     var discardedPile: some View{
         
         ZStack {
-            ForEach(viewModel.matchedCards.filter(isDiscarded)) { card in
+            ForEach(viewModel.deck.filter(isDiscardedBeforeAnimation)) { card in
                 CardView(viewModel: self.viewModel, card: card)
                     .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                     .transition(AnyTransition
-                                    .asymmetric(insertion: .opacity, removal: .identity))
+                                    .asymmetric(insertion: .identity, removal: .identity))
                     .zIndex(zIndex(of: card))
             }
         }
         .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
         .foregroundColor(CardConstants.color)
-
-
+        
 
     }
 
-    
-
-    
-//    var dealCardsButton: some View{
-//        Button() {
-//            self.viewModel.dealMoreCards()
-//        } label: {
-//            Text("Deal 3 cards")
-//                .padding()
-//        }
-//        .disabled(self.viewModel.isDeckEmpty)
-//        .foregroundColor(.white)
-//        .background(RoundedRectangle(cornerRadius: 10   , style: .continuous).foregroundColor(.cyan))
-//        .font(.headline)
-//        .frame(width: 140, height: 50)
-//
-//    }
-    
 
  
     // MARK: - Methods
+    private func dealWithAnimation(){
+        for card in self.viewModel.cards{
+            withAnimation(dealAnimation(for: card)) {
+                self.deal(card)
+            }
+        }
+        
+    }
+    
+    private func unDealWithAnimation(){
+        for card in self.viewModel.matchedCards{
+            withAnimation(unDealAnimation(for: card)) {
+                self.unDealBeforeAnimation(card)
+            }
+            
+        }
+        
+    }
     
     private func deal(_ card: SetRoyaleGame.Card){
         self.dealtCards.insert(card.id)
@@ -207,7 +188,17 @@ struct SetRoyaleGameView: View {
     
     
     private func isDiscarded(_ card: SetRoyaleGame.Card) -> Bool{
-        self.discardedCards.contains(card.id)
+        self.discardedCards.contains(card.id) && self.viewModel.unDealtMatchedCards.contains(card)
+    }
+
+    private func unDealBeforeAnimation(_ card: SetRoyaleGame.Card){
+        self.tempDiscardedCards.insert(card.id)
+    }
+
+    
+    
+    private func isDiscardedBeforeAnimation(_ card: SetRoyaleGame.Card) -> Bool{
+        self.tempDiscardedCards.contains(card.id) && self.viewModel.unDealtMatchedCards.contains(card)
     }
 
     
@@ -225,6 +216,17 @@ struct SetRoyaleGameView: View {
         }
         return Animation.easeInOut(duration: CardConstants.dealDuration).delay(delay)
     }
+    
+    private func unDealAnimation(for card: SetRoyaleGame.Card) -> Animation {
+        var delay = 0.0
+        if var index = viewModel.matchedCards.firstIndex(where: { $0.id == card.id }) {
+            index  = (index % 3) + 1
+            delay = Double(index) * ( CardConstants.totalDealDuration / 3)
+        }
+        return Animation.easeInOut(duration: CardConstants.dealDuration).delay(delay)
+    }
+
+    
     
     private func zIndex(of card: SetRoyaleGame.Card) -> Double {
         -Double(viewModel.cards.firstIndex(where: { $0.id == card.id }) ?? 0)

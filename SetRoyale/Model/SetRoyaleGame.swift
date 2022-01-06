@@ -29,18 +29,18 @@ struct SetRoyaleGame{
     
     
     var dealedCards: [Card]{
-        return self.deck.filter({$0.isDealt == true})
+        return self.deck.filter({$0.isDealt})
     }
     
     var selectedCards: [Card]{
         
-        return self.deck.filter({$0.isSelected == true})
+        return self.deck.filter({$0.isSelected})
         
     }
     
     var matchedCards: [Card]{
         
-        return self.deck.filter({$0.isMatched == true})
+        return self.deck.filter({$0.isMatched})
         
     }
     
@@ -51,6 +51,12 @@ struct SetRoyaleGame{
         
     }
 
+    var unDealthMatchedCards: [Card]{
+        
+        return self.deck.filter({$0.isMatched && !$0.isDealt})
+        
+    }
+    
     
     private(set) var score: Int = 0
     
@@ -97,7 +103,7 @@ struct SetRoyaleGame{
             }
         }
         
-       // deck.shuffle()
+        deck.shuffle()
         
         return deck
     }

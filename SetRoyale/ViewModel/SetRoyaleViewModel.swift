@@ -26,6 +26,10 @@ class SetRoyaleViewModel: ObservableObject{
         self.model.matchedCards
     }
 
+    var unDealtMatchedCards: [SetRoyaleGame.Card]{
+        self.model.unDealthMatchedCards
+    }
+
     
     
     var score: Int{
@@ -145,5 +149,7 @@ class SetRoyaleViewModel: ObservableObject{
     func choose(_ card: SetRoyaleGame.Card){
         self.model.chooseCard(card)
     }
+    
+    
 
 }
